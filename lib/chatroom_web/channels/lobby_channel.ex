@@ -163,6 +163,7 @@ defmodule Chatroom.LobbyChannel do
     end
 
       def handle_in("tweet", payload, socket) do
+        IO.inspect "Received a tweet!!!!!!"
         username = Map.get(payload, "username")
         content = Map.get(payload, "tweetText")
         :ets.insert(:map_of_sockets, {username, socket})

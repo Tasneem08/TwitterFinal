@@ -203,7 +203,7 @@ channel.on('ReceiveMentions', payload => {
   var arrayLength = myTweets.length;
   area.innerHTML = '';
   for (var i = 0; i < arrayLength; i++) {
-    area.innerHTML+=(`${payload.tweets[i].tweeter} tweeted: ${payload.tweets[i].tweet}`);
+    area.innerHTML+=(`<b>${payload.tweets[i].tweeter} tweeted:</b> ${payload.tweets[i].tweet}`);
     area.innerHTML+="<br>";
   }
   $(area).prop({scrollTop: $(area).prop("scrollHeight")});
@@ -215,7 +215,7 @@ channel.on('ReceiveQueryResults', payload => {
   var arrayLength = myTweets.length;
   area.innerHTML = '';
   for (var i = 0; i < arrayLength; i++) {
-    area.innerHTML+=(`${payload.tweets[i].tweeter} tweeted: ${payload.tweets[i].tweet}`);
+    area.innerHTML+=(`<b>${payload.tweets[i].tweeter} tweeted:</b> ${payload.tweets[i].tweet}`);
     area.innerHTML+="<br>";
   }
   $(area).prop({scrollTop: $(area).prop("scrollHeight")});
@@ -240,7 +240,7 @@ channel.on('ReceiveHashtags', payload => {
   var arrayLength2 = myTweets2.length;
   hasharea.innerHTML = '';
   for (var i = 0; i < arrayLength2; i++) {
-    hasharea.innerHTML+=(`${payload.tweets[i].tweeter} tweeted: ${payload.tweets[i].tweet}`);
+    hasharea.innerHTML+=(`<b>${payload.tweets[i].tweeter} tweeted:</b> ${payload.tweets[i].tweet}`);
     hasharea.innerHTML+="<br>";
   }
   $(hasharea).prop({scrollTop: $(hasharea).prop("scrollHeight")});
