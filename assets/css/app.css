@@ -1,0 +1,125 @@
+/* This file is for your main application css. */
+ #tweet-list {
+  border: 1px solid #777;
+  height: 200px;
+  width: 500px;
+  padding: 10px;
+  overflow: scroll; 
+  margin-bottom: 50px;
+} 
+
+#unlog {
+  text-align: center;
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: red;
+} 
+
+.mentions-list {
+  /* border: 1px solid #777; */
+  border: 5px solid grey;
+  border-style: ridge;
+  height: 100px;
+  width: 405px;
+  padding: 5px;
+  overflow: scroll; 
+  margin-bottom: 15px;
+  display: inline-block; 
+  vertical-align:justify;
+  margin: 0 auto
+} 
+
+
+/* .boxSub{
+  display: inline-block; 
+  height: 92px;
+  width: 405px;
+  padding: 5px;
+  vertical-align:justify;
+  margin: 0 auto
+  
+  
+} */
+
+#button-retweet {
+  border: 1px solid #777;
+  height: 30px;
+  padding: 5px;
+  text-align: justify;
+  margin-bottom: 50px;
+}
+#tdright {
+  
+  text-align: top;
+  width: 100px;
+  
+}
+
+.signupPart {
+  border: 1px solid green;
+  border-style: ridge;
+  /* height: 30px; */
+  padding: 5px;
+  text-align: justify;
+  margin-bottom: 50px;
+  margin: 0 auto;
+  width: 400px;
+  font: 'Times New Roman';
+  background-color: rgba(58, 71, 146, 0.301);
+}
+
+.dash{
+  /* border: 1px solid green; */
+  border-style: ridge;
+  margin: 0 auto;
+  padding: 5px;
+  text-align: justify;
+  width: 830px
+
+}
+
+.box {
+  display: inline-block; 
+  /* width: 300px;
+  margin-left: 10px;
+  margin-top: 10px; */
+  padding: 5px;
+  vertical-align:justify;
+  margin: 0 auto
+  
+  
+}
+
+.box1{
+  display: inline-block; 
+  width: 300px;
+  margin-left: 10px;
+  margin-top: 10px; 
+  padding: 5px;
+  vertical-align:justify;
+  margin: 0 auto
+  
+  
+}
+.box2{
+  display: inline-block; 
+  /* width: 300px;
+  margin-left: 10px;
+  margin-top: 10px; */
+  padding: 5px;
+  vertical-align:justify;
+  margin: 0 auto
+  
+  
+}
+
+
+
+#signupPart {
+  border: 1px solid #777;
+  /* height: 30px; */
+  padding: 5px;
+  text-align: justify;
+  margin-bottom: 50px;
+}
+
