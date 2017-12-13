@@ -145,6 +145,16 @@ if(document.getElementById("btnRetweet"))         // use this if you are using i
     channel.push('reTweet', { username: userID,  tweet: val_radio, org: org_user});
 }};
 
+if(document.getElementById("btnQueryTweets"))         // use this if you are using id to check
+{
+  var userID =  window.location.hash.substring(1)
+  document.getElementById("btnQueryTweets").onclick = function() {
+  channel.push('queryTweets', { username: userID });
+}
+};
+
+
+
 channel.on('Login', payload => {
 
   var unlog    = document.getElementById("unlog");
@@ -198,6 +208,19 @@ channel.on('ReceiveMentions', payload => {
   }
   $(area).prop({scrollTop: $(area).prop("scrollHeight")});
 });
+
+channel.on('ReceiveQueryResults', payload => {
+  var area   = document.getElementById("queryArea");
+  var myTweets = payload.tweets;
+  var arrayLength = myTweets.length;
+  area.innerHTML = '';
+  for (var i = 0; i < arrayLength; i++) {
+    area.innerHTML+=(`${payload.tweets[i].tweeter} tweeted: ${payload.tweets[i].tweet}`);
+    area.innerHTML+="<br>";
+  }
+  $(area).prop({scrollTop: $(area).prop("scrollHeight")});
+});
+
 
 channel.on('AddToFollowsList', payload => {
   var area   = document.getElementById("followsArea");

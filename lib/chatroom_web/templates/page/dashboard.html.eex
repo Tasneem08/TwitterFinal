@@ -1,58 +1,67 @@
 
 	<div class="dashboardPart"> 
-	<div align="left">
-                <a href="http://localhost:4000/" id="btnLogOut" style="text-align:right">Log Out</a> </div>
+		<div align="left">
+					<a href="http://localhost:4000/" id="btnLogOut" style="text-align:right">Log Out</a> </div>
 		</div>
-	<header>
-		<div class="wrapper">
-			</b><h1 style="padding-left: 7cm;font-family: Arial">TWITTER CLONE</h1>
-	</header>
-	<div class="dash">
-
-			<div class="panel right" style="text-align :left; border: 5px solid grey;border-style: ridge;padding: 20px;margin: 0 auto">
-				<label><h3>Post a Tweet!</h3>
-						<center/><input id="tweetContent" size=83 placeholder="Your tweet goes here.." type="text">
-                        <button id="btnTweet">Tweet!</button></label>
-			</div>
-			</br>
-			<div id="tweets" style="text-align :left; border: 5px solid grey;border-style: ridge;padding: 20px;margin: 0 auto">
-				    <center/><h3>Live Tweets</h3>
-					<div id='tweet-list' class='row'>
-					</div>
-					<input type="submit" id="btnRetweet" value="Retweet this!">					
-			</div>
-
-			<div class="box" style="text-align: left">
-				<div style="text-align :left; border: 5px solid grey;border-style: ridge;padding: 20px;margin: 0 auto">
-					<h3>Subscribe</h3>
-					<input id="username2" placeholder = "Username" type="text">
-
-					<button id="btnFollow">Follow</button>
+		<header>
+			<div class="wrapper">
+				</b><h1 style="padding-left: 7cm;font-family: Arial">TWITTER CLONE</h1>
+		</header>
+		<div class="dash">
+				<div class="panel right" style="text-align :left; border: 5px solid grey;border-style: ridge;padding: 20px;margin: 0 auto">
+					<label><h3>Post a Tweet!</h3>
+							<center/><input id="tweetContent" size=83 placeholder="Your tweet goes here.." type="text">
+							<button id="btnTweet">Tweet!</button></label>
 				</div>
-			</div>
-			<div class="box" >
-				<div id="followsArea" class ='mentions-list' style="width: 501px;margin-bottom: 0px;padding: 1px;height:100px" >Subscriptions!!</div>
-			</div>
+				</br>
+				<div id="tweets" style="text-align :left; border: 5px solid grey;border-style: ridge;padding: 20px;margin: 0 auto">
+						<center/><h3>Live Tweets</h3>
+						<div id='tweet-list' class='row'>
+						</div>
+						<input type="submit" id="btnRetweet" value="Retweet this!">					
+				</div>
 
-		    <div style="text-align :left; border: 5px solid grey;border-style: ridge;padding: 20px;margin: 0 auto">
-			<div class="box" style="width: 370px;;text-align: left">
-				<label><h3>Get my mentions</h3>
-				 	<button id="btnMyMentions">Get my Mentions</button>
-					 </br>
-					<%# <div id="mentionsArea" class ='row' ></div> %>
-                </label>
-			</div>
-			
-			<div class="box" style="text-align: left">
-				<label><h3>Search by Hashtag</h3>
-						<input id="hashtag" style="width:300px" placeholder = "#HashtagsHere" type="text">
-						<button id="btnhashtag">Search!</button></label>
-						
-                        
-			</div>
-			</div>
+				<div class="box" style="text-align: left">
+					<div style="text-align :left; border: 5px solid grey;border-style: ridge;padding: 20px;margin: 0 auto">
+						<h3>Subscribe</h3>
+						<input id="username2" placeholder = "Username" type="text">
+
+						<button id="btnFollow">Follow</button>
+					</div>
+				</div>
+				<div class="box" >
+					<div id="followsArea" class ='mentions-list' style="width: 501px;margin-bottom: 0px;padding: 1px;height:100px" >Subscriptions!!</div>
+				</div>
+
+				<div style="text-align :left; border: 5px solid grey;border-style: ridge;padding: 20px;margin: 0 auto">
+					<div class="box" style="width: 370px;;text-align: left">
+						<label><h3>Get my mentions</h3>
+							<button id="btnMyMentions">Get my Mentions</button>
+							</br>
+							<%# <div id="mentionsArea" class ='row' ></div> %>
+						</label>
+					</div>
+				
+					<div class="box" style="text-align: left">
+						<label><h3>Search by Hashtag</h3>
+								<input id="hashtag" style="width:300px" placeholder = "#HashtagsHere" type="text">
+								<button id="btnhashtag">Search!</button></label>
+					</div>
+				</div>
 
 				<div id="mentionsArea" class ='mentions-list' >My Mentions!</div>
 				<div id= "hashtagArea" class='mentions-list'>Hashtags</div>
-			</div>
+		
+
+				<div style="text-align :left; border: 5px solid grey;border-style: ridge;padding: 20px;margin: 0 auto">
+					<div class="box" style="width: 360px;text-align: left;display: inline-block;vertical-align: top;">
+							<label><h4>Query Your Tweets!</h4>
+							<button id="btnQueryTweets">Query Tweets</button>
+							</br>
+							</label>
+					</div>
+
+					<div id="queryArea" class ='mentions-list' style ="width:755px; height:200px" >My News Feed!</div>
+				</div>
+		</div>
 </div>
