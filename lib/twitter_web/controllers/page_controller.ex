@@ -1,5 +1,5 @@
-defmodule ChatroomWeb.PageController do
-  use ChatroomWeb, :controller
+defmodule TwitterWeb.PageController do
+  use TwitterWeb, :controller
 
   def index(conn, _params) do
     render conn, "home.html"

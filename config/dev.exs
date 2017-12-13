@@ -6,7 +6,7 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
-config :chatroom, ChatroomWeb.Endpoint,
+config :twitter, TwitterWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -31,13 +31,13 @@ config :chatroom, ChatroomWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :chatroom, ChatroomWeb.Endpoint,
+config :twitter, TwitterWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/chatroom_web/views/.*(ex)$},
-      ~r{lib/chatroom_web/templates/.*(eex)$}
+      ~r{lib/twitter_web/views/.*(ex)$},
+      ~r{lib/twitter_web/templates/.*(eex)$}
     ]
   ]
 
@@ -49,10 +49,10 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
-config :chatroom, Chatroom.Repo,
+config :twitter, Twitter.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "123456",
-  database: "chatroom_dev",
+  password: "postgres",
+  database: "twitter_dev",
   hostname: "localhost",
   pool_size: 10

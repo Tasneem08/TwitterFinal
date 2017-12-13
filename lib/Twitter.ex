@@ -1,4 +1,4 @@
-defmodule Chatroom do
+defmodule Twitter do
   @moduledoc """
   Chatroom keeps the contexts that define your domain
   and business logic.

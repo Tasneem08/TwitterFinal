@@ -1,5 +1,5 @@
-defmodule ChatroomWeb.Router do
-  use ChatroomWeb, :router
+defmodule TwitterWeb.Router do
+  use TwitterWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,15 +13,11 @@ defmodule ChatroomWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ChatroomWeb do
+  scope "/", TwitterWeb do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
     get "/dashboard", PageController, :dashboard
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", ChatroomWeb do
-  #   pipe_through :api
-  # end
 end
