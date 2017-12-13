@@ -1,4 +1,4 @@
-defmodule ChatroomWeb.ErrorHelpers do
+defmodule TwitterWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -32,9 +32,9 @@ defmodule ChatroomWeb.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(ChatroomWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(TwitterWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(ChatroomWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(TwitterWeb.Gettext, "errors", msg, opts)
     end
   end
 end

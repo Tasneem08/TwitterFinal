@@ -1,5 +1,5 @@
-defmodule Chatroom.Repo do
-  use Ecto.Repo, otp_app: :chatroom
+defmodule Twitter.Repo do
+  use Ecto.Repo, otp_app: :twitter
 
   @doc """
   Dynamically loads the repository url from the

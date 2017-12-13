@@ -1,4 +1,4 @@
-defmodule Chatroom.LobbyChannel do
+defmodule Twitter.MuginuChannel do
     use Phoenix.Channel
   
     def join("lobby", _payload, socket) do
@@ -76,7 +76,7 @@ defmodule Chatroom.LobbyChannel do
       end
 
       def handle_in("reTweet", payload, socket) do
-        IO.inspect "REACHED HERE"
+        IO.inspect "RETWEETING!"
         nextID = :ets.info(:tweetsDB)[:size]
 
         username = Map.get(payload, "username")
@@ -112,6 +112,7 @@ defmodule Chatroom.LobbyChannel do
     # end
 
       def handle_in("getMyMentions", payload, socket) do
+        IO.inspect "RETWEETING!"
         username = Map.get(payload, "username")
         mentions =
         if :ets.lookup(:mentionsMap, username) == [] do
@@ -133,7 +134,7 @@ defmodule Chatroom.LobbyChannel do
     end
   
     def getMentions([], mentionedTweets) do
-    #   IO.inspect mentionedTweets
+        mentionedTweets
     end
 
     def handle_in("tweetsWithHashtag", payload, socket) do
@@ -163,18 +164,15 @@ defmodule Chatroom.LobbyChannel do
     end
 
       def handle_in("tweet", payload, socket) do
-        IO.inspect "Received a tweet!!!!!!"
+        IO.inspect "RECEIVED A TWEET!"
         username = Map.get(payload, "username")
         content = Map.get(payload, "tweetText")
         :ets.insert(:map_of_sockets, {username, socket})
         {hashtags, mentions} = extractMentionsAndHashtags(content)
         nextID = :ets.info(:tweetsDB)[:size]
-        # insert into tweetsDB get size - index / key. insert value mei tuple.
-        # Simulator.log("TweetID: #{nextID} => #{username} posted a new tweet : #{content}")
-        # TweetID #{nextID} => 
-        # index = Kernel.map_size(tweetsDB)
+
         :ets.insert(:tweetsDB, {nextID, username, content, false, nil})
-        # tweetsDB = Map.put(tweetsDB, index, {username, content})
+
         updateMentionsMap(mentions, nextID)
         updateHashTagMap(hashtags, nextID)
         
@@ -189,9 +187,6 @@ defmodule Chatroom.LobbyChannel do
         sendToFollowers(followers, nextID, username, payload2)
         sendToFollowers(mentions, nextID, username, payload2)
   
-        # broadcast! socket, "tweet", payload
-        # IO.inspect socket
-        # broadcast! socket, "ReceiveTweet", payload
         {:noreply, socket}
     end
 
@@ -300,43 +295,5 @@ defmodule Chatroom.LobbyChannel do
       end
       List.flatten(result)
     end
-    # :ets.insert(:map_of_sockets, {socket.id, socket})
-    # list_of_socket_ids = ["Roukna"]
-    #for s_id <- list_of_socket_ids do
-    #    s_val = elem(List.first(:ets.lookup(:map_of_sockets, s_id)), 1)
-    #    push s_val, "Registered", payload
-    #end
-
-    #IO.inspect user_name
-    #IO.inspect password
-    #IO.inspect register_success
-
-    #def handle_in("login", payload, socket) do
-    #    user_name = payload["name"]
-    #    password = payload["message"]
-    #    current_time = DateTime.utc_now()
-        
-    #    login_pwd = elem(List.first(:ets.lookup(:users, user_name)), 1)
-    #    if login_pwd == password do
-    #        :ets.insert(:map_of_sockets, {user_name, socket})
-    #    else 
-    #      {:noreply, state}
-    #    end
-
-    #    register_success = :ets.insert_new(:users, {user_name, password, current_time})
-    #    :ets.insert(:map_of_sockets, {socket.id, socket})
-
-    #    list_of_socket_ids = ["Roukna"]
-    #    for s_id <- list_of_socket_ids do
-    #        s_val = elem(List.first(:ets.lookup(:map_of_sockets, s_id)), 1)
-    #        push s_val, "Registered", payload
-    #    end
-        #IO.inspect user_name
-        #IO.inspect password
-        #IO.inspect register_success
-    #    {:noreply, socket}
-    #end
-
-
 
   end

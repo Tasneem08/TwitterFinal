@@ -1,5 +1,5 @@
-defmodule ChatroomWeb.ErrorView do
-  use ChatroomWeb, :view
+defmodule TwitterWeb.ErrorView do
+  use TwitterWeb, :view
 
   def render("404.html", _assigns) do
     "Page not found"

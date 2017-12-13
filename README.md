@@ -1,4 +1,4 @@
-# Chatroom
+# Twitter Clone
 
 To start your Phoenix server:
 

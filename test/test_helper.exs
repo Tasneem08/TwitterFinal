@@ -1,4 +1,4 @@
 ExUnit.start()
 
-Ecto.Adapters.SQL.Sandbox.mode(Chatroom.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(Twitter.Repo, :manual)
 

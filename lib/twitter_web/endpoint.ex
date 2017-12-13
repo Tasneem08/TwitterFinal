@@ -1,14 +1,14 @@
-defmodule ChatroomWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :chatroom
+defmodule TwitterWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :twitter
 
-  socket "/socket", ChatroomWeb.UserSocket
+  socket "/socket", TwitterWeb.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :chatroom, gzip: false,
+    at: "/", from: :twitter, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -38,7 +38,7 @@ defmodule ChatroomWeb.Endpoint do
     key: "_chatroom_key",
     signing_salt: "7a90DqJg"
 
-  plug ChatroomWeb.Router
+  plug TwitterWeb.Router
 
   @doc """
   Callback invoked for dynamically configuring the endpoint.
