@@ -100,7 +100,7 @@ defmodule Chatroom.LobbyChannel do
         end
 
         payload2 = %{tweeter: username, tweetText: content, isRetweet: true, org: org_user}
-        IO.inspect payload2
+        # IO.inspect payload2
         sendToFollowers(followers, nextID, username, payload2)
         sendToFollowers(mentions, nextID, username, payload2)
         {:noreply, socket}
@@ -133,7 +133,7 @@ defmodule Chatroom.LobbyChannel do
     end
   
     def getMentions([], mentionedTweets) do
-      IO.inspect mentionedTweets
+    #   IO.inspect mentionedTweets
     end
 
     def handle_in("tweetsWithHashtag", payload, socket) do
@@ -249,7 +249,7 @@ defmodule Chatroom.LobbyChannel do
     end
   
     def updateHashTagMap([hashtag | hashtags], index) do
-        IO.inspect hashtag
+        #IO.inspect hashtag
         elems = 
         if :ets.lookup(:hashtagMap, hashtag) == [] do
             element = MapSet.new
@@ -284,7 +284,7 @@ defmodule Chatroom.LobbyChannel do
           [{_, set}] = :ets.lookup(:followsTable,username)
           set
         end 
-        IO.inspect mapSet
+       # IO.inspect mapSet
         relevantTweets = fetchRelevantTweets(mapSet)
   
         push socket, "ReceiveQueryResults", %{tweets: relevantTweets}

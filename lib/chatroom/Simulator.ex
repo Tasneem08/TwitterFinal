@@ -1,4 +1,8 @@
 defmodule Simulator do
+
+    use Phoenix.ChannelTest
+    @endpoint ChatroomWeb.Endpoint
+    
     
     def simulate(total) do
 
@@ -11,8 +15,8 @@ defmodule Simulator do
             Process.sleep(5000)
             # Start the simulation
             start_simulation()
-            # Process.sleep(15000)
-            # spawn(fn-> getMyMentions() end)
+            Process.sleep(15000)
+            spawn(fn-> getMyMentions() end)
             # Process.sleep(5000)
             # spawn(fn-> searchByHashtag() end)
             # Process.sleep(5000)
@@ -34,17 +38,18 @@ defmodule Simulator do
     
     def start_Client([client | numClients], mapOfSockets) do
             # Start the socket driver process
-            {:ok, socket} = SocketDriver.start_link(
-              ChatroomWeb.Endpoint,
-              ChatroomWeb.UserSocket
-            )
+            # {:ok, socket} = SocketDriver.start_link(ChatroomWeb.Endpoint,ChatroomWeb.UserSocket)
+            {:ok, socket} = connect(ChatroomWeb.UserSocket, %{})    
+            {:ok, _, socket} = subscribe_and_join(socket, "lobby", %{})
         
             payload = %{username: "user" <> Integer.to_string(client), password: "123"}
             # socket.connect()
             
-            # SocketDriver.join(socket, "lobby")
-            SocketDriver.push(socket, :lobby, "register_account", payload)
-            SocketDriver.push(socket, :lobby, "login", payload)
+            # ###SocketDriver.join(socket, "lobby")
+            # SocketDriver.push(socket, :lobby, "register_account", payload)
+            # SocketDriver.push(socket, :lobby, "login", payload)
+            push socket, "register_account", payload
+            push socket, "login", payload
             mapOfSockets = Map.put(mapOfSockets, "user" <> Integer.to_string(client), socket)
             start_Client(numClients, mapOfSockets)
     end
@@ -56,6 +61,7 @@ defmodule Simulator do
 
     def getMyMentions() do
         [{_, numClients}] = :ets.lookup(:staticFields, "totalNodes")
+        [{_, mapOfSockets}] = :ets.lookup(:staticFields, "mapOfSockets")
         IO.inspect "GETTING MY MENTIONS"
     
         # select 5 random to kill and store these ids in a list
@@ -64,18 +70,23 @@ defmodule Simulator do
         end
     
         for j <- clientIds do
-            spawn(fn -> GenServer.cast(String.to_atom("user"<>Integer.to_string(j)),{:getMyMentions}) end)
+            # spawn(fn -> GenServer.cast(String.to_atom("user"<>Integer.to_string(j)),{:getMyMentions}) end)
+            payload = %{username: String.to_atom("user"<>Integer.to_string(j))}
+            socket = Map.get(mapOfSockets, String.to_atom("user"<>Integer.to_string(j)))
+            push socket, "getMyMentions", payload
+
         end
     end
     
     def searchByHashtag() do
         [{_, hashTags}] = :ets.lookup(:staticFields, "hashTags")
+        [{_, mapOfSockets}] = :ets.lookup(:staticFields, "mapOfSockets")
         IO.inspect "SEARCHING BY HASHTAG"
         
         # select 5 random to kill and store these ids in a list
         for i<- 1..5 do
             hashTag = Enum.random(hashTags)
-            IO.inspect hashTag
+            # IO.inspect hashTag
             spawn(fn -> GenServer.cast(String.to_atom("user"<>Integer.to_string(i)),{:search_by_hashtags, String.trim(hashTag)}) end)
         end
     
@@ -128,10 +139,10 @@ defmodule Simulator do
                 content = Simulator.getTweetContent(username)
                 # IO.inspect content
                 payload = %{tweetText: content , username: username}
-                GenServer.cast(String.to_atom(username),{:tweet, content})
-                IO.inspect SocketDriver.push(socket, "lobby", "tweet", payload)
-                Process.sleep(delay)
-            
+                #GenServer.cast(String.to_atom(username),{:tweet, content})
+                #IO.inspect SocketDriver.push(socket, "lobby", "tweet", payload)
+                push socket, "tweet", payload
+                Process.sleep(delay)            
                 generateMultipleTweets(username, socket, delay)
     end
     
@@ -158,7 +169,8 @@ defmodule Simulator do
     
                 follower = ("user" <> Integer.to_string(Enum.random(1..numClients)))
                 mainUser = ("user" <> Integer.to_string(tweeter))
-                SocketDriver.push(Map.get(mapOfSockets, follower), "lobby", "subscribeTo", %{username2: mainUser, selfId: follower})
+                #SocketDriver.push(Map.get(mapOfSockets, follower), "lobby", "subscribeTo", %{username2: mainUser, selfId: follower})
+                push Map.get(mapOfSockets, follower), "subscribeTo", %{username2: mainUser, selfId: follower}
         end
     
         listofFollowersCount = 
