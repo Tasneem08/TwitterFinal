@@ -6,6 +6,7 @@
   padding: 10px;
   overflow: scroll; 
   margin-bottom: 50px;
+  text-align: left;
 } 
 
 #unlog {
