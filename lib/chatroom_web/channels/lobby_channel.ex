@@ -272,6 +272,33 @@ defmodule Chatroom.LobbyChannel do
     
     def sendToFollowers([], _, _, _) do
     end
+
+    def handle_in("queryTweets", payload, socket) do
+        username = Map.get(payload, "username")
+        
+        mapSet = 
+        if :ets.lookup(:followsTable,username) == [] do
+          MapSet.new
+        else
+          [{_, set}] = :ets.lookup(:followsTable,username)
+          set
+        end 
+        IO.inspect mapSet
+        relevantTweets = fetchRelevantTweets(mapSet)
+  
+        push socket, "ReceiveQueryResults", %{tweets: relevantTweets}
+        {:noreply, socket}  
+    end
+    
+      
+    def fetchRelevantTweets(mapSet) do
+        result = 
+        for f_user <- MapSet.to_list(mapSet) do
+          list_of_tweets = List.flatten(:ets.match(:tweetsDB, {:_, f_user, :"$1", :_, :_}))
+          Enum.map(list_of_tweets, fn tweetContent -> %{tweeter: f_user, tweet: tweetContent} end)
+      end
+      List.flatten(result)
+    end
     # :ets.insert(:map_of_sockets, {socket.id, socket})
     # list_of_socket_ids = ["Roukna"]
     #for s_id <- list_of_socket_ids do
