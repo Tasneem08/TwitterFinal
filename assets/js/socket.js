@@ -146,22 +146,21 @@ if(document.getElementById("btnRetweet"))         // use this if you are using i
 }};
 
 channel.on('Login', payload => {
-  //alert(`${payload.login_status}`)
-  let unlog    = $('#unlog');
-  let list    = $('#unlog');
-  //list.append(`<b>${"Registered:" || 'Anonymous'}:</b> ${payload.login_status}<br>`);
-  list.prop({scrollTop: list.prop("scrollHeight")});
 
+  var unlog    = document.getElementById("unlog");
+  unlog.innerHTML = '';
    if(`${payload.login_status}` == "Login unsuccessful")
    {
     //window.location.href = "http://localhost:4000/";
-    unlog.append(`<b>Incorrect username or password.Please try again!<br>`);
+    unlog.innerHTML+= (`<b>Incorrect username or password.Please try again!<br>`);
+    //unlog.append(`<b>Incorrect username or password.Please try again!<br>`);
     console.log("unsuccessful");
     
    }
    else 
    {
      console.log("successful");
+     unlog.innerHTML = '';
      window.location.href = 'http://localhost:4000/dashboard' + '#' + payload.user_name;
   }
 });
