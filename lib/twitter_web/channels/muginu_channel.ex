@@ -8,8 +8,7 @@ defmodule Twitter.MuginuChannel do
     def handle_in("register_account", payload, socket) do
         user_name = payload["username"]
         password = payload["password"]
-        current_time = DateTime.utc_now()
-        register_success = :ets.insert_new(:users, {user_name, password, current_time})
+        :ets.insert_new(:users, {user_name, password})
         {:noreply, socket}
     end
 

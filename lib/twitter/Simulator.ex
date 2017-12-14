@@ -57,7 +57,7 @@ defmodule Simulator do
         IO.inspect "GETTING MY MENTIONS"
     
         # select 5 random to kill and store these ids in a list
-        clientIds = for i<- 1..5 do
+        clientIds = for _<- 1..5 do
             client = Enum.random(1..numClients)
         end
     
