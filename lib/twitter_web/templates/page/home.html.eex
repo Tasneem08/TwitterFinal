@@ -1,6 +1,5 @@
 
 <h1 style = "font: 'Times'; font-weight: bold;font-size: 200%"><center>Twitter Clone</center></h1>
-	<%# <div id='message-list' class='row'></div> %>
 	<div>
 		<div>
 			<div class="signupPart">
@@ -20,7 +19,6 @@
 			<div id='unlog' class='row'></div>
 				<input id="username" placeholder = "Username" type="text"><br/>
 				<br/><input id="password" placeholder = "*******" type="password"><br/>
-				<!--<input id="signin" type="submit" value="Sign In">-->
 				<br/><button id="signin">Sign In</button>
 			</center>
 		</div>

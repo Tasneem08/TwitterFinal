@@ -8,10 +8,9 @@ defmodule Simulator do
 
             # total = String.to_integer(num)
             mapOfSockets = start_Client(Enum.to_list(1..total), %{})
-            
             setupStaticData(total, mapOfSockets)
+            
             # Start the clients
-            IO.inspect mapOfSockets
             Process.sleep(5000)
             # Start the simulation
             start_simulation()
@@ -19,9 +18,6 @@ defmodule Simulator do
             spawn(fn-> getMyMentions() end)
             Process.sleep(5000)
             spawn(fn-> searchByHashtag() end)
-            # Process.sleep(5000)
-            # spawn(fn-> killClients(ipAddr) end)
-            # :timer.sleep(:infinity)
       end
     
     def log(str) do
@@ -67,8 +63,8 @@ defmodule Simulator do
     
         for j <- clientIds do
             # spawn(fn -> GenServer.cast(String.to_atom("user"<>Integer.to_string(j)),{:getMyMentions}) end)
-            IO.inspect payload = %{username: "user"<>Integer.to_string(j)}
-            IO.inspect socket2 = Map.get(mapOfSockets, "user"<>Integer.to_string(j))
+            payload = %{username: "user"<>Integer.to_string(j)}
+            socket2 = Map.get(mapOfSockets, "user"<>Integer.to_string(j))
             push socket2, "getMyMentions", payload
 
         end
@@ -84,7 +80,6 @@ defmodule Simulator do
         # select 5 random to kill and store these ids in a list
         for i<- 1..5 do
             hashTag = Enum.random(hashTags)
-            # IO.inspect hashTag
             payload = %{hashtag: String.trim(hashTag)}
             socket2 = Map.get(mapOfSockets, "user"<>Integer.to_string(i))
             push socket2, "tweetsWithHashtag", payload

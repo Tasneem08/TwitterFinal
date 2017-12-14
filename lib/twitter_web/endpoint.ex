@@ -47,6 +47,7 @@ defmodule TwitterWeb.Endpoint do
   configuration should be loaded from the system environment.
   """
   def init(_key, config) do
+
     :ets.new(:users, [:set, :public, :named_table])
     :ets.new(:hashtagMap, [:set, :public, :named_table])
     :ets.new(:mentionsMap, [:set, :public, :named_table])
@@ -56,8 +57,6 @@ defmodule TwitterWeb.Endpoint do
     :ets.new(:userToIPMap, [:set, :public, :named_table])
     :ets.new(:map_of_sockets, [:set, :public, :named_table])
     
-
-
     if config[:load_from_system_env] do
       port = System.get_env("PORT") || raise "expected the PORT environment variable to be set"
       {:ok, Keyword.put(config, :http, [:inet6, port: port])}

@@ -10,7 +10,7 @@
 } 
 
 #tweets {
-  background: rgb(49, 198, 252);
+  background: #55ACEE;
   /* color: white; */
 
 }
@@ -25,7 +25,7 @@
 }
 
 .mentionshashtagspart1{
-  background: rgb(76, 199, 248);
+  background: #55ACEE;
   }
 
 #unlog {
@@ -107,8 +107,6 @@
   padding: 5px;
   /* vertical-align:justify; */
   margin: 0 auto
-  
-  
 }
 
 .qtwitter
@@ -139,8 +137,6 @@
   
 }
 
-
-
 #signupPart {
   border: 1px solid #777;
   /* height: 30px; */
@@ -148,7 +144,6 @@
   text-align: justify;
   margin-bottom: 50px;
 }
-
 
 /* Style all font awesome icons */
 .fa {

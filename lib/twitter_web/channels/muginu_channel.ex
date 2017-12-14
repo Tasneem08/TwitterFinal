@@ -16,7 +16,6 @@ defmodule Twitter.MuginuChannel do
     def handle_in("login", payload, socket) do
         user_name = payload["username"]
         password = payload["password"]
-        current_time = DateTime.utc_now()
         login_pwd = if :ets.lookup(:users, user_name) != [] do
             elem(List.first(:ets.lookup(:users, user_name)), 1)
         else
@@ -64,14 +63,10 @@ defmodule Twitter.MuginuChannel do
           end 
     
           mapSet2 = MapSet.put(mapSet2, username)
-          # followsTable = Map.put(followsTable, selfId, mapSet2)
+
           :ets.insert(:followsTable, {selfId, mapSet2})
-    
-        # broadcast! socket, "subscribeTo", payload
-        #sendToFollowsArea(mapSet2, nextID, username, payload2)
-        push socket, "AddToFollowsList", %{follows: mapSet2} #added this
 
-
+        push socket, "AddToFollowsList", %{follows: mapSet2} 
         {:noreply, socket}
       end
 
@@ -126,17 +121,6 @@ defmodule Twitter.MuginuChannel do
         {:noreply, socket}
     end
 
-    def getMentions([index | rest], mentionedTweets) do
-        [{index, username, content, isRetweet, org_tweeter}] = :ets.lookup(:tweetsDB, index)
-        # mentionedTweets = List.insert_at(mentionedTweets, 0, {index, {username, content}})
-        mentionedTweets = List.insert_at(mentionedTweets, 0, %{tweetID: index, tweeter: username, tweet: content, isRetweet: isRetweet, org: org_tweeter})
-        getMentions(rest, mentionedTweets)
-    end
-  
-    def getMentions([], mentionedTweets) do
-        mentionedTweets
-    end
-
     def handle_in("tweetsWithHashtag", payload, socket) do
         hashtag = Map.get(payload, "hashtag")
   
@@ -151,16 +135,6 @@ defmodule Twitter.MuginuChannel do
         hashtagTweets = getHashtags(MapSet.to_list(tweets), [])
         push socket, "ReceiveHashtags", %{tweets: hashtagTweets}
         {:noreply, socket}
-    end
-
-    def getHashtags([index | rest], hashtagTweets) do
-        [{index, username, content, isRetweet, org_tweeter}] = :ets.lookup(:tweetsDB, index)
-        hashtagTweets = List.insert_at(hashtagTweets, 0, %{tweetID: index, tweeter: username, tweet: content, isRetweet: isRetweet, org: org_tweeter})
-        getHashtags(rest, hashtagTweets)
-    end
-  
-    def getHashtags([], hashtagTweets) do
-        hashtagTweets
     end
 
       def handle_in("tweet", payload, socket) do
@@ -188,6 +162,43 @@ defmodule Twitter.MuginuChannel do
         sendToFollowers(mentions, nextID, username, payload2)
   
         {:noreply, socket}
+    end
+
+    def handle_in("queryTweets", payload, socket) do
+        username = Map.get(payload, "username")
+        
+        mapSet = 
+        if :ets.lookup(:followsTable,username) == [] do
+          MapSet.new
+        else
+          [{_, set}] = :ets.lookup(:followsTable,username)
+          set
+        end 
+       # IO.inspect mapSet
+        relevantTweets = fetchRelevantTweets(mapSet)
+  
+        push socket, "ReceiveQueryResults", %{tweets: relevantTweets}
+        {:noreply, socket}  
+    end
+
+    def getHashtags([index | rest], hashtagTweets) do
+        [{index, username, content, isRetweet, org_tweeter}] = :ets.lookup(:tweetsDB, index)
+        hashtagTweets = List.insert_at(hashtagTweets, 0, %{tweetID: index, tweeter: username, tweet: content, isRetweet: isRetweet, org: org_tweeter})
+        getHashtags(rest, hashtagTweets)
+    end
+  
+    def getHashtags([], hashtagTweets) do
+        hashtagTweets
+    end
+
+    def getMentions([index | rest], mentionedTweets) do
+        [{index, username, content, isRetweet, org_tweeter}] = :ets.lookup(:tweetsDB, index)
+        mentionedTweets = List.insert_at(mentionedTweets, 0, %{tweetID: index, tweeter: username, tweet: content, isRetweet: isRetweet, org: org_tweeter})
+        getMentions(rest, mentionedTweets)
+    end
+  
+    def getMentions([], mentionedTweets) do
+        mentionedTweets
     end
 
     def extractMentionsAndHashtags(content) do
@@ -269,24 +280,6 @@ defmodule Twitter.MuginuChannel do
     def sendToFollowers([], _, _, _) do
     end
 
-    def handle_in("queryTweets", payload, socket) do
-        username = Map.get(payload, "username")
-        
-        mapSet = 
-        if :ets.lookup(:followsTable,username) == [] do
-          MapSet.new
-        else
-          [{_, set}] = :ets.lookup(:followsTable,username)
-          set
-        end 
-       # IO.inspect mapSet
-        relevantTweets = fetchRelevantTweets(mapSet)
-  
-        push socket, "ReceiveQueryResults", %{tweets: relevantTweets}
-        {:noreply, socket}  
-    end
-    
-      
     def fetchRelevantTweets(mapSet) do
         result = 
         for f_user <- MapSet.to_list(mapSet) do
