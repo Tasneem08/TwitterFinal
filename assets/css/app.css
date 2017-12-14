@@ -10,14 +10,23 @@
 } 
 
 #tweets {
-  background: rgb(76, 199, 248);
+  background: rgb(49, 198, 252);
   /* color: white; */
 
 }
 
-.mentionshashtagspart{
-  background: rgb(76, 199, 248);
+.font1{
+  font-weight: 900;
+  color:white;
 }
+.font2{
+  font-weight: 600;
+  color:rgb(68, 64, 64);
+}
+
+.mentionshashtagspart1{
+  background: rgb(76, 199, 248);
+  }
 
 #unlog {
   text-align: center;
@@ -37,7 +46,8 @@
   margin-bottom: 15px;
   display: inline-block; 
   vertical-align:justify;
-  margin: 0 auto
+  margin: 0 auto;
+  background-color:white;
 } 
 
 
@@ -99,6 +109,12 @@
   margin: 0 auto
   
   
+}
+
+.qtwitter
+{
+  background: rgb(30, 104, 165);
+  color: white;
 }
 
 .box1{

@@ -52,7 +52,7 @@ config :phoenix, :stacktrace_depth, 20
 config :twitter, Twitter.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "postgres",
+  password: "123456",
   database: "twitter_dev",
   hostname: "localhost",
   pool_size: 10
